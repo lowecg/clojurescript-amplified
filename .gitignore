@@ -19,6 +19,8 @@ pom.xml.asc
 .hgignore
 .hg/
 
+/.clj-kondo/.cache
+.cpcache
 
 amplify/team-provider-info.json
 
@@ -34,6 +36,8 @@ amplify/backend/api/usersettings/resolvers
 amplify/backend/api/usersettings/stacks
 amplify/backend/api/usersettings/parameters.json
 amplify/backend/api/usersettings/transform.conf.json
+
+
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend

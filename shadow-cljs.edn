@@ -1,19 +1,14 @@
 ;; shadow-cljs configuration
-{:source-paths
- ["src/main"
-  "src/stories"]
-
- :dependencies
- [[reagent "1.1.0"]
-  [re-frame "1.2.0"]
-  [arttuka/reagent-material-ui "5.0.0-0"]]
+{:deps     true
 
  :dev-http {8080 "public"}
- :builds   {:app {:target           :browser
-                  :output-dir       "public/js"
-                  :asset-path       "/js"
-                  :modules          {:main {:init-fn app.core/init}}
-                  :devtools         {:after-load app.core/start}}
+ :builds   {:app              {:target     :browser
+                               :output-dir "public/js"
+                               :asset-path "/js"
+                               :js-options {:js-provider    :external
+                                            :external-index "target/index.js"}
+                               :modules    {:main {:init-fn app.core/init}}
+                               :devtools   {:after-load app.core/start}}
 
             :app-with-amplify {:target     :browser
                                :output-dir "public/js"
@@ -23,6 +18,18 @@
                                :modules    {:main {:init-fn app.amplified.core/init}}
                                :devtools   {:after-load app.amplified.core/start}}
 
-            :stories {:target     :npm-module
-                      :ns-regexp  "-stories$"
-                      :output-dir "public/js/stories"}}}
+            :stories          {:target     :npm-module
+                               :output-dir "public/js/stories"
+                               :ns-regexp  "-stories$"
+
+                               ;; storybook already handles all reloading
+                               :devtools   {:enabled false}}
+
+            #_{:target          :esm
+               :output-dir      "public/js/stories"
+               :ns-regexp       "-stories$"
+               :compiler-option {:infer-externs      :auto
+                                 :output-feature-set :es2015
+                                 :source-map         true}
+               :module-loader   true
+               :modules         {:app.stories.avatar_stories {:exports {default app.stories.avatar-stories/default}}}}}}
