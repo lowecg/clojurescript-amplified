@@ -22,10 +22,6 @@ const config: StorybookConfig = {
           const exportName = match[1];
 
           if (!exportName.endsWith("default")) {
-            console.error(`FILE NAME  "${fileName}"`);
-            console.error(`EXPORT NAME  "${exportName}"`);
-            console.error(` NAME  "${exportName.replace(/^book_/, "")}"`);
-
             exportNames.push(exportName);
           }
         }
@@ -35,7 +31,7 @@ const config: StorybookConfig = {
           importPath: fileName,
           // title: '', // auto generated from importPath if undefined
           exportName,
-          name: exportName.replace(/^book_/, ""),
+          name: exportName,
         }));
       },
     },
